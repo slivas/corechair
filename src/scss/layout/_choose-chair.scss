@@ -1,0 +1,81 @@
+.choose-section {
+  padding-top: 100px;
+
+  @media (min-width: 1024px) {
+    padding-top: 164px;
+  }
+
+  h2 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 28px;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 62px;
+      font-size: 48px;
+    }
+  }
+
+  .swiper {
+    padding-right: 20px;
+    padding-left: 20px;
+
+    @media (min-width: 1024px) {
+      padding: 0;
+    }
+    
+    &-nav {
+      @media (min-width: 1280px) {
+        margin-top: 50px;
+      }
+    }
+
+    &-slide {
+      width: 168px;
+      height: 224px;
+
+      @media (min-width: 768px) {
+        width: 220px;
+        height: 294px;
+      }
+
+      @media (min-width: 1024px) {
+        width: 322px;
+        height: 429px;
+      }
+
+      @media (min-width: 1280px) {
+        width: 520px;
+        height: 693px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &-pagination-bullet {
+      width: 16px;
+      height: 16px;
+    }
+
+    &__button {
+      display: none;
+
+      @media (min-width: 1024px) {
+        display: block;
+        width: 40px;
+        height: 40px;
+      }
+
+      svg {
+        @media (min-width: 1024px) {
+          height: 40px;
+          width: 40px;
+        }
+      }
+    }
+  }
+}

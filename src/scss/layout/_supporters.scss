@@ -1,0 +1,154 @@
+.supporters {
+  &-section {
+    margin-top: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #EEE;
+
+    @media (min-width: 1024px) {
+      margin-top: 160px;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    &__header {
+      text-align: center;
+    }
+
+    &__subtitle {
+      margin-bottom: 8px;
+      font: {
+        family: 'Rubik', sans-serif;
+        size: 20px;
+        weight: 700;
+      }
+      line-height: 1.5;
+      text-transform: uppercase;
+
+      @media (min-width: 1024px) {
+        font-size: 26px;
+      }
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+
+      @media (min-width: 1024px) {
+        font-size: 48px;
+      }
+    }
+
+    &__description {
+      font-size: 17px;
+
+      @media (min-width: 1024px) {
+        font: {
+          size: 24px;
+          family: 'Rubik', sans-serif;
+        }
+        line-height: 1.6;
+      }
+    }
+  }
+
+  &-swiper {
+    margin-top: 32px;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    @media (min-width: 1024px) {
+      margin-top: 60px;
+    }
+
+    @media (min-width: 1560px) {
+      padding-right: 60px;
+      padding-left: 60px;
+    }
+
+    .swiper {
+      &-slide {
+        width: 168px;
+        text-align: center;
+        
+        @media (min-width: 1024px) {
+          width: 400px;
+        }
+
+        .img {
+          display: block;
+          width: 100%;
+          height: 168px;
+          margin-bottom: 18px;
+          border-radius: 8px;
+          overflow: hidden;
+          
+          @media (min-width: 1024px) {
+            height: 392px;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .name {
+          margin-bottom: 8px;
+          font: {
+            family: 'Rubik', sans-serif;
+            size: 18px;
+            weight: 700;
+          }
+
+          @media (min-width: 1024px) {
+            font-size: 32px;
+          }
+        }
+
+        .position {
+          color: #008F72;
+          font-size: 17px;
+
+          @media (min-width: 1024px) {
+            font-size: 22px;
+          }
+        }
+      }
+
+      &-pagination {
+        &-bullet {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      &-nav {
+        margin-top: 24px;
+
+        @media (min-width: 1024px) {
+          margin-top: 52px;
+        }
+      }
+
+      &__button {
+        @media (max-width: 1023px) {
+          display: none;
+        }
+
+        @media (min-width: 1024px) {
+          width: 40px;
+          height: 40px;
+        }
+
+        svg {
+          @media (min-width: 1024px) {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+.hero {
+  text-align: center;
+
+  @media (min-width: 768px) {
+    position: relative;
+    color: #fff;
+    text-align: left;
+    z-index: 1;
+  }
+
+  &::before,
+  &::after {
+    @media (min-width: 768px) {
+      content: '';
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &::before {
+    @media (min-width: 768px) {
+      width: 44vw;
+      background-image: url("../images/spine.webp");
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: 1;
+    }
+  }
+
+  &::after {
+    @media (min-width: 768px) {
+      width: 100%;
+      background: linear-gradient(270deg, rgba(20, 22, 24, 0.00) 20.18%, rgba(20, 22, 24, 0.65) 37.07%, rgba(20, 22, 24, 0.80) 48.58%, #141618 69.3%, #141618 97.68%);
+      z-index: 0;
+    }
+  }
+
+  .main-container {
+    @media (min-width: 768px) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+  }
+
+  &__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 88% top;
+
+    @media (min-width: 768px) {
+      object-position: right top;
+    }
+
+    @media (min-width: 1280px) {
+      object-fit: contain;
+    }
+
+    &--wrapper {
+      height: 464px;
+      margin-bottom: 40px;
+      background-color: rgba(19 21 23);
+
+      @media (min-width: 768px) {
+        height: 56vw;
+      }
+
+      @media (min-width: 1280px) {
+        max-height: 100vh;
+      }
+    }
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    color: #008F72;
+    font-size: 36px;
+
+    @media (min-width: 768px) {
+      display: grid;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 46px;
+    }
+
+    @media (min-width: 1280px) {
+      margin-bottom: 30px;
+      font-size: 64px;
+    }
+
+    span {
+      @media (min-width: 768px) {
+        color: #fff;
+      }
+    }
+  }
+
+  &__text-wrapper {
+    max-width: 440px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @media (min-width: 1024px) {
+      max-width: none;
+    }
+  }
+
+  &__description {
+    margin-bottom: 36px;
+    font-size: 17px;
+
+    @media (min-width: 1024px) {
+      max-width: 500px;
+      font-size: 20px;
+    }
+
+    @media (min-width: 1280px) {
+      max-width: 630px;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+  }
+
+  .btn {
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: auto;
+    }
+  }
+}
+
