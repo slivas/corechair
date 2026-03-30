@@ -61,6 +61,10 @@
   height: 100%;
   overflow: hidden;
 
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+
   &__image {
     position: absolute;
     inset: 0;

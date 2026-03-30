@@ -1230,6 +1230,10 @@ h2 {
   position: relative;
   height: 100%;
   overflow: hidden;
+  touch-action: pan-y;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
 }
 .before-after__image {
   position: absolute;

@@ -327,14 +327,66 @@ document.addEventListener('DOMContentLoaded', () => {
         const range = slider.querySelector('.before-after__range');
         if (!range) return;
 
-        const update = () => {
-            slider.style.setProperty('--pos', range.value + '%');
+        let isDragging = false;
+
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        const setPosition = (value) => {
+            const percent = clamp(Number(value), 0, 100);
+            slider.style.setProperty('--pos', `${percent}%`);
+            range.value = percent;
         };
 
-        range.addEventListener('input', update);
-        range.addEventListener('change', update);
+        const updateFromClientX = (clientX) => {
+            const rect = slider.getBoundingClientRect();
+            const x = clamp(clientX - rect.left, 0, rect.width);
+            const percent = (x / rect.width) * 100;
+            setPosition(percent);
+        };
 
-        update();
+        const getClientX = (e) => {
+            if (e.touches && e.touches.length) return e.touches[0].clientX;
+            if (e.changedTouches && e.changedTouches.length) return e.changedTouches[0].clientX;
+            return e.clientX;
+        };
+
+        const startDrag = (e) => {
+            isDragging = true;
+            updateFromClientX(getClientX(e));
+        };
+
+        const moveDrag = (e) => {
+            if (!isDragging) return;
+
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            updateFromClientX(getClientX(e));
+        };
+
+        const endDrag = () => {
+            isDragging = false;
+        };
+
+        range.addEventListener('input', () => {
+            setPosition(range.value);
+        });
+
+        range.addEventListener('change', () => {
+            setPosition(range.value);
+        });
+
+        slider.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', moveDrag);
+        window.addEventListener('mouseup', endDrag);
+
+        slider.addEventListener('touchstart', startDrag, { passive: true });
+        window.addEventListener('touchmove', moveDrag, { passive: false });
+        window.addEventListener('touchend', endDrag);
+        window.addEventListener('touchcancel', endDrag);
+
+        setPosition(range.value || 50);
     });
 
 //Explore Accordion
