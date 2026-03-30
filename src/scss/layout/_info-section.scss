@@ -111,7 +111,11 @@
     }
 
     &--item {
-      height: 24px;
+      height: 7vw;
+
+      @media (max-width: 767px) {
+        max-height: 56px;
+      }
       
       @media (min-width: 768px) {
         height: 56px;
