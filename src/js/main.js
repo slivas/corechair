@@ -416,6 +416,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .map(item => item.dataset.model)
         .filter(model => infoMap.has(model));
 
+    function wait(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
     function slideDown(element, duration = 400) {
         return new Promise((resolve) => {
             element.hidden = false;
@@ -466,7 +470,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!nav) return;
 
         const shouldShow = desktopMq.matches && !!activeModel && modelOrder.length > 1;
-
         nav.hidden = !shouldShow;
     }
 
@@ -485,12 +488,27 @@ document.addEventListener('DOMContentLoaded', () => {
         updateArrows();
     }
 
-    async function openModel(model) {
+    function scrollToExploreTop() {
+        const offset = 0; // якщо є sticky header, постав сюди його висоту
+        const top = root.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: Math.max(0, top),
+            behavior: 'smooth'
+        });
+    }
+
+    async function openModel(model, shouldScroll = false) {
         if (isAnimating) return;
         if (!infoMap.has(model) || !productMap.has(model)) return;
         if (activeModel === model) return;
 
         isAnimating = true;
+
+        if (shouldScroll) {
+            scrollToExploreTop();
+            await wait(150);
+        }
 
         if (activeModel) {
             const currentInfo = infoMap.get(activeModel);
@@ -506,8 +524,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         nextProduct.hidden = true;
         nextProduct.style.display = 'none';
-
-        scrollToExploreTop();
 
         await slideDown(nextInfo);
 
@@ -551,23 +567,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return modelOrder[nextIndex];
     }
 
-    function scrollToExploreTop() {
-        if (desktopMq.matches) return;
-
-        const top = root.getBoundingClientRect().top + window.pageYOffset;
-
-        window.scrollTo({
-            top,
-            behavior: 'smooth'
-        });
-    }
-
     productItems.forEach((item) => {
-        const btn = item.querySelector('.item__read-more');
-        if (!btn) return;
+        item.addEventListener('click', (e) => {
+            if (isAnimating) return;
 
-        btn.addEventListener('click', () => {
-            openModel(item.dataset.model);
+            const model = item.dataset.model;
+            if (!model) return;
+
+            openModel(model, true);
         });
     });
 
@@ -575,25 +582,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeBtns = item.querySelectorAll('.explore__btn-close, .explore__btn-hide');
 
         closeBtns.forEach((btn) => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 closeModel(item.dataset.model);
             });
         });
     });
 
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
             if (!desktopMq.matches) return;
+
             const model = getAdjacentModel(-1);
-            if (model) openModel(model);
+            if (model) {
+                openModel(model, true);
+            }
         });
     }
 
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
             if (!desktopMq.matches) return;
+
             const model = getAdjacentModel(1);
-            if (model) openModel(model);
+            if (model) {
+                openModel(model, true);
+            }
         });
     }
 

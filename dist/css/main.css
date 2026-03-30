@@ -1727,6 +1727,7 @@ h2 {
     border-color: transparent;
     border-bottom-color: #008F72;
     transition-duration: 0.25s;
+    cursor: pointer;
   }
 }
 @media (min-width: 1024px) {
