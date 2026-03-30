@@ -2,6 +2,10 @@
   padding-top: 80px;
   color: #454545;
 
+  @media (min-width: 1024px) {
+    padding-top: 160px;
+  }
+
   .main-container {
     display: grid;
     grid-row-gap: 36px;
@@ -79,7 +83,7 @@
     justify-content: center;
     margin-top: 32px;
     margin-bottom: 32px;
-    gap: 16px;
+    gap: 16px 10px;
 
     @media (min-width: 768px) {
       gap: 24px;
@@ -106,7 +110,7 @@
     }
 
     &--item {
-      height: 40px;
+      height: 24px;
       
       @media (min-width: 768px) {
         height: 56px;

@@ -391,6 +391,11 @@ h2 {
     height: 56vw;
   }
 }
+@media (min-width: 1024px) {
+  .hero__video--wrapper {
+    margin-bottom: 0;
+  }
+}
 @media (min-width: 1280px) {
   .hero__video--wrapper {
     max-height: 100vh;
@@ -461,6 +466,11 @@ h2 {
 .info-section {
   padding-top: 80px;
   color: #454545;
+}
+@media (min-width: 1024px) {
+  .info-section {
+    padding-top: 160px;
+  }
 }
 .info-section .main-container {
   display: grid;
@@ -539,7 +549,7 @@ h2 {
   justify-content: center;
   margin-top: 32px;
   margin-bottom: 32px;
-  gap: 16px;
+  gap: 16px 10px;
 }
 @media (min-width: 768px) {
   .info__logo-list {
@@ -572,7 +582,7 @@ h2 {
   }
 }
 .info__logo-list--item {
-  height: 40px;
+  height: 24px;
 }
 @media (min-width: 768px) {
   .info__logo-list--item {
@@ -592,7 +602,7 @@ h2 {
 }
 @media (min-width: 1024px) {
   .pain-types {
-    margin-top: 164px;
+    margin-top: 160px;
     padding-top: 80px;
     padding-bottom: 80px;
   }
@@ -699,7 +709,7 @@ h2 {
 .pain-types .flip-card {
   width: 100%;
   max-width: 350px;
-  height: 470px;
+  height: 510px;
   cursor: pointer;
   pointer-events: all;
 }
@@ -752,6 +762,7 @@ h2 {
   margin-bottom: 16px;
   font-size: 18px;
   text-align: center;
+  color: #222;
 }
 @media (min-width: 1280px) {
   .pain-types .flip-card__title {
@@ -811,6 +822,7 @@ h2 {
 .pain-types .flip-card__annotation--img {
   width: 64px;
   height: 36px;
+  flex-shrink: 0;
 }
 @media (min-width: 1280px) {
   .pain-types .flip-card__annotation--img {
@@ -826,6 +838,11 @@ h2 {
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
+}
+@media (min-width: 1440px) {
+  .pain-types .flip-card__annotation .smaller-text {
+    font-size: 21px;
+  }
 }
 .pain-types .flip-card__front, .pain-types .flip-card__back {
   position: absolute;
@@ -1583,22 +1600,10 @@ h2 {
   transform: translateY(-50%) rotate(180deg);
 }
 .explore-models .explore-accordion__block-title {
-  position: relative;
   padding: 6px 10px;
   font-size: 20px;
   font-weight: 700;
   color: #008F72;
-}
-.explore-models .explore-accordion__block-title::after {
-  content: "";
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  width: 24px;
-  height: 24px;
-  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.9395 14.5608L12 9.62277L7.0605 14.5615L6 13.5003L12 7.50028L18 13.5003L16.9395 14.5608Z' fill='%23008F72'/%3E%3C/svg%3E%0A");
-  background-size: contain;
-  transform: translateY(-50%);
 }
 .explore-models .explore-accordion__header {
   position: relative;
@@ -1810,10 +1815,6 @@ h2 {
 
 .explore__content-stage {
   position: relative;
-  display: none;
-}
-.explore__content-stage .is-open {
-  display: block;
 }
 
 .supporters-section {

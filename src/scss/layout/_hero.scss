@@ -72,6 +72,10 @@
         height: 56vw;
       }
 
+      @media (min-width: 1024px) {
+        margin-bottom: 0;
+      }
+
       @media (min-width: 1280px) {
         max-height: 100vh;
       }

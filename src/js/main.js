@@ -391,6 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('.explore-models__wrapper');
     if (!root) return;
 
+    const stage = root.querySelector('.explore__content-stage');
+
     const infoWrappers = Array.from(root.querySelectorAll('.explore__info-wrapper[data-model]'));
     const productItems = Array.from(root.querySelectorAll('.explore__product-item[data-model]'));
     const nav = root.querySelector('.explore__products-nav');
@@ -420,49 +422,190 @@ document.addEventListener('DOMContentLoaded', () => {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
+    function clearInfoInlineStyles(element) {
+        element.style.height = '';
+        element.style.transition = '';
+        element.style.overflow = '';
+    }
+
+    function clearStageInlineStyles() {
+        if (!stage) return;
+        stage.style.height = '';
+        stage.style.transition = '';
+        stage.style.overflow = '';
+    }
+
     function slideDown(element, duration = 400) {
         return new Promise((resolve) => {
+            clearInfoInlineStyles(element);
+
             element.hidden = false;
             element.style.display = 'block';
-            element.style.overflow = 'hidden';
-            element.style.height = '0px';
-            element.offsetHeight;
-            element.style.transition = `height ${duration}ms ease`;
-            element.style.height = `${element.scrollHeight}px`;
 
-            const onEnd = (e) => {
-                if (e.target !== element) return;
+            const targetHeight = element.scrollHeight || element.offsetHeight;
+
+            if (!targetHeight) {
+                clearInfoInlineStyles(element);
+                resolve();
+                return;
+            }
+
+            let finished = false;
+
+            const finish = () => {
+                if (finished) return;
+                finished = true;
+
                 element.removeEventListener('transitionend', onEnd);
+                clearTimeout(fallbackTimer);
+
                 element.style.transition = '';
                 element.style.height = 'auto';
                 element.style.overflow = '';
                 resolve();
             };
 
+            const onEnd = (e) => {
+                if (e.target !== element) return;
+                finish();
+            };
+
+            element.style.overflow = 'hidden';
+            element.style.height = '0px';
+            element.offsetHeight;
+            element.style.transition = `height ${duration}ms ease`;
+            element.style.height = `${targetHeight}px`;
+
             element.addEventListener('transitionend', onEnd);
+            const fallbackTimer = setTimeout(finish, duration + 80);
         });
     }
 
     function slideUp(element, duration = 400) {
         return new Promise((resolve) => {
+            clearInfoInlineStyles(element);
+
+            const startHeight = element.scrollHeight || element.offsetHeight;
+
+            if (!startHeight) {
+                element.hidden = true;
+                element.style.display = 'none';
+                clearInfoInlineStyles(element);
+                resolve();
+                return;
+            }
+
+            let finished = false;
+
+            const finish = () => {
+                if (finished) return;
+                finished = true;
+
+                element.removeEventListener('transitionend', onEnd);
+                clearTimeout(fallbackTimer);
+
+                element.hidden = true;
+                element.style.display = 'none';
+                clearInfoInlineStyles(element);
+                resolve();
+            };
+
+            const onEnd = (e) => {
+                if (e.target !== element) return;
+                finish();
+            };
+
             element.style.overflow = 'hidden';
-            element.style.height = `${element.scrollHeight}px`;
+            element.style.height = `${startHeight}px`;
             element.offsetHeight;
             element.style.transition = `height ${duration}ms ease`;
             element.style.height = '0px';
 
-            const onEnd = (e) => {
-                if (e.target !== element) return;
-                element.removeEventListener('transitionend', onEnd);
-                element.hidden = true;
-                element.style.display = 'none';
-                element.style.transition = '';
-                element.style.height = '';
-                element.style.overflow = '';
+            element.addEventListener('transitionend', onEnd);
+            const fallbackTimer = setTimeout(finish, duration + 80);
+        });
+    }
+
+    function switchInfoBlocks(currentEl, nextEl, duration = 400) {
+        return new Promise((resolve) => {
+            if (!stage) {
+                clearInfoInlineStyles(currentEl);
+                clearInfoInlineStyles(nextEl);
+
+                currentEl.hidden = true;
+                currentEl.style.display = 'none';
+
+                nextEl.hidden = false;
+                nextEl.style.display = 'block';
+
+                resolve();
+                return;
+            }
+
+            clearInfoInlineStyles(currentEl);
+            clearInfoInlineStyles(nextEl);
+            clearStageInlineStyles();
+
+            currentEl.hidden = false;
+            currentEl.style.display = 'block';
+
+            const currentHeight = currentEl.scrollHeight || currentEl.offsetHeight;
+
+            stage.style.height = `${currentHeight}px`;
+            stage.style.overflow = 'hidden';
+            stage.offsetHeight;
+
+            nextEl.hidden = false;
+            nextEl.style.display = 'block';
+            nextEl.style.position = 'absolute';
+            nextEl.style.visibility = 'hidden';
+            nextEl.style.pointerEvents = 'none';
+            nextEl.style.left = '0';
+            nextEl.style.right = '0';
+
+            const nextHeight = nextEl.scrollHeight || nextEl.offsetHeight;
+
+            nextEl.style.position = '';
+            nextEl.style.visibility = '';
+            nextEl.style.pointerEvents = '';
+            nextEl.style.left = '';
+            nextEl.style.right = '';
+
+            currentEl.hidden = true;
+            currentEl.style.display = 'none';
+
+            nextEl.hidden = false;
+            nextEl.style.display = 'block';
+
+            if (!nextHeight || currentHeight === nextHeight) {
+                clearStageInlineStyles();
+                resolve();
+                return;
+            }
+
+            let finished = false;
+
+            const finish = () => {
+                if (finished) return;
+                finished = true;
+
+                stage.removeEventListener('transitionend', onEnd);
+                clearTimeout(fallbackTimer);
+
+                clearStageInlineStyles();
                 resolve();
             };
 
-            element.addEventListener('transitionend', onEnd);
+            const onEnd = (e) => {
+                if (e.target !== stage) return;
+                finish();
+            };
+
+            stage.style.transition = `height ${duration}ms ease`;
+            stage.style.height = `${nextHeight}px`;
+
+            stage.addEventListener('transitionend', onEnd);
+            const fallbackTimer = setTimeout(finish, duration + 80);
         });
     }
 
@@ -477,12 +620,15 @@ document.addEventListener('DOMContentLoaded', () => {
         infoWrappers.forEach((item) => {
             item.hidden = true;
             item.style.display = 'none';
+            clearInfoInlineStyles(item);
         });
 
         productItems.forEach((item) => {
             item.hidden = false;
             item.style.display = '';
         });
+
+        clearStageInlineStyles();
 
         activeModel = null;
         updateArrows();
@@ -510,22 +656,26 @@ document.addEventListener('DOMContentLoaded', () => {
             await wait(150);
         }
 
+        const nextInfo = infoMap.get(model);
+        const nextProduct = productMap.get(model);
+
         if (activeModel) {
             const currentInfo = infoMap.get(activeModel);
             const currentProduct = productMap.get(activeModel);
 
-            await slideUp(currentInfo);
             currentProduct.hidden = false;
             currentProduct.style.display = '';
+
+            nextProduct.hidden = true;
+            nextProduct.style.display = 'none';
+
+            await switchInfoBlocks(currentInfo, nextInfo);
+        } else {
+            nextProduct.hidden = true;
+            nextProduct.style.display = 'none';
+
+            await slideDown(nextInfo);
         }
-
-        const nextInfo = infoMap.get(model);
-        const nextProduct = productMap.get(model);
-
-        nextProduct.hidden = true;
-        nextProduct.style.display = 'none';
-
-        await slideDown(nextInfo);
 
         activeModel = model;
         updateArrows();
@@ -544,6 +694,8 @@ document.addEventListener('DOMContentLoaded', () => {
         await slideUp(info);
         product.hidden = false;
         product.style.display = '';
+
+        clearStageInlineStyles();
 
         if (activeModel === model) {
             activeModel = null;
@@ -568,7 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     productItems.forEach((item) => {
-        item.addEventListener('click', (e) => {
+        item.addEventListener('click', () => {
             if (isAnimating) return;
 
             const model = item.dataset.model;
@@ -618,10 +770,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    desktopMq.addEventListener('change', updateArrows);
+    desktopMq.addEventListener('change', () => {
+        clearStageInlineStyles();
+        updateArrows();
+    });
 
     resetState();
-
 });
 
 function initMovingBullet(swiper) {

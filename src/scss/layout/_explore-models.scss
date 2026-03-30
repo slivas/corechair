@@ -197,26 +197,12 @@
       }
 
       &__block-title {
-        position: relative;
         padding: 6px 10px;
         font: {
           size: 20px;
           weight: 700;
         }
         color: #008F72;
-
-        &::after {
-          content: '';
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          width: 24px;
-          height: 24px;
-          background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.9395 14.5608L12 9.62277L7.0605 14.5615L6 13.5003L12 7.50028L18 13.5003L16.9395 14.5608Z' fill='%23008F72'/%3E%3C/svg%3E%0A");
-          background-size: contain;
-          transform: translateY(-50%);
-
-        }
       }
 
       &__header {
@@ -444,9 +430,4 @@
 
 .explore__content-stage {
   position: relative;
-  display: none;
-
-  .is-open {
-    display: block;
-  }
 }

@@ -5,7 +5,7 @@
   background-color: #eee;
 
   @media (min-width: 1024px) {
-    margin-top: 164px;
+    margin-top: 160px;
     padding-top: 80px;
     padding-bottom: 80px;
   }
@@ -120,7 +120,7 @@
   .flip-card {
     width: 100%;
     max-width: 350px;
-    height: 470px;
+    height: 510px;
     cursor: pointer;
     pointer-events: all;
 
@@ -177,6 +177,7 @@
         size: 18px;
       }
       text-align: center;
+      color: #222;
 
       @media (min-width: 1280px) {
         font-size: 28px;
@@ -234,6 +235,7 @@
       &--img {
         width: 64px;
         height: 36px;
+        flex-shrink: 0;
         
         @media (min-width: 1280px) {
           width: 75px;
@@ -248,6 +250,12 @@
           width: 100%;
           height: 100%;
           object-fit: contain;
+        }
+      }
+
+      .smaller-text {
+        @media (min-width: 1440px) {
+          font-size: 21px;
         }
       }
     }
