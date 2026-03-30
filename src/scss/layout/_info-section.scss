@@ -80,7 +80,7 @@
   &__logo-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 32px;
     margin-bottom: 32px;
     gap: 16px 10px;
@@ -88,6 +88,7 @@
     @media (min-width: 768px) {
       gap: 24px;
     }
+
     @media (min-width: 1024px) {
       justify-content: flex-start;
     }

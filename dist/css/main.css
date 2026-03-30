@@ -546,7 +546,7 @@ h2 {
 .info__logo-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 32px;
   margin-bottom: 32px;
   gap: 16px 10px;
@@ -709,7 +709,7 @@ h2 {
 .pain-types .flip-card {
   width: 100%;
   max-width: 350px;
-  height: 510px;
+  height: 470px;
   cursor: pointer;
   pointer-events: all;
 }
