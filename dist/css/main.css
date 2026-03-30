@@ -2024,6 +2024,7 @@ h2 {
   }
 }
 .video-reviews-section .swiper-slide__footer {
+  position: relative;
   flex-grow: 1;
   padding-top: 8px;
   padding-bottom: 14px;
@@ -2032,6 +2033,7 @@ h2 {
   grid-column-gap: 4px;
   background-color: #008F72;
   color: #fff;
+  z-index: 2;
 }
 @media (min-width: 1024px) {
   .video-reviews-section .swiper-slide__footer {
