@@ -714,7 +714,7 @@ h2 {
 .pain-types .flip-card {
   width: 100%;
   max-width: 350px;
-  height: 470px;
+  height: 480px;
   cursor: pointer;
   pointer-events: all;
 }
@@ -826,13 +826,12 @@ h2 {
 }
 .pain-types .flip-card__annotation--img {
   width: 64px;
-  height: 36px;
+  height: auto;
   flex-shrink: 0;
 }
 @media (min-width: 1280px) {
   .pain-types .flip-card__annotation--img {
     width: 75px;
-    height: 64px;
   }
 }
 .pain-types .flip-card__annotation--img:not(.bg-transparent) {

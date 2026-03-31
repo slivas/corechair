@@ -119,7 +119,7 @@
   .flip-card {
     width: 100%;
     max-width: 350px;
-    height: 470px;
+    height: 480px;
     cursor: pointer;
     pointer-events: all;
 
@@ -233,12 +233,11 @@
 
       &--img {
         width: 64px;
-        height: 36px;
+        height: auto;
         flex-shrink: 0;
         
         @media (min-width: 1280px) {
           width: 75px;
-          height: 64px;
         }
 
         &:not(.bg-transparent) {
