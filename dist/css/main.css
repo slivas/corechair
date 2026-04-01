@@ -867,7 +867,7 @@ h2 {
 }
 @media (min-width: 1440px) {
   .pain-types .flip-card__front, .pain-types .flip-card__back {
-    padding: 56px 64px;
+    padding: 56px;
   }
 }
 .pain-types .flip-card__front {
