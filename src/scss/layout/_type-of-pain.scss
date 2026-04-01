@@ -193,11 +193,11 @@
       line-height: 1.66;
 
       @media (min-width: 1280px) {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       @media (min-width: 1440px) {
-        font-size: 24px;
+        font-size: 22px;
       }
     }
 
@@ -274,15 +274,15 @@
       @media (min-width: 1280px) {
         padding: 48px 32px;
       }
-
-      @media (min-width: 1440px) {
-        padding: 56px;
-      }
     }
 
     &__front {
       background-color: #FFF;
       text-align: center;
+
+      @media (min-width: 1440px) {
+        padding: 56px 20px;
+      }
     }
 
     &__back {
@@ -296,6 +296,7 @@
       }
 
       @media (min-width: 1440px) {
+        padding: 56px;
         font-size: 22px;
       }
 
